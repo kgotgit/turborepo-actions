@@ -1,0 +1,15 @@
+{
+  "name": "@providers/sanity",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo 'Testing sanity provider'"
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "sanity": "^3.0.0"
+  }
+}
