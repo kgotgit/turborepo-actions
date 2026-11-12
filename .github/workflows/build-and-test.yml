@@ -1,0 +1,53 @@
+name: Build and Test Actions
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - run: npm install
+      
+      - name: Run Turbo Build (builds shared, then all actions in parallel)
+        run: npm run build
+        
+      - name: Run Tests
+        run: npm run test
+        
+      - name: Build Again (shows Turbo caching - should be instant)
+        run: npm run build
+
+  publish-actions:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - run: npm install && npm run build
+      
+      - name: Commit dist files
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add packages/*/dist
+          git commit -m "chore: update dist files [skip ci]" || true
+          git push

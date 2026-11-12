@@ -1,0 +1,20 @@
+name: Deploy
+description: Deploy application to environment
+inputs:
+  environment:
+    description: Target environment (dev, staging, production)
+    required: true
+  version:
+    description: Version to deploy
+    required: false
+    default: '1.0.0'
+outputs:
+  deployment_id:
+    description: Unique deployment ID
+  status:
+    description: Deployment status
+  environment:
+    description: Deployment environment
+runs:
+  using: node20
+  main: dist/index.js
