@@ -1,0 +1,17 @@
+{
+  "name": "action-checkout",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && ncc build dist/index.js -o dist",
+    "test": "echo 'Testing action-checkout'"
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/shared": "*"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.0"
+  }
+}

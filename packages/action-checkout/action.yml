@@ -1,0 +1,13 @@
+name: Checkout
+description: Custom checkout action
+inputs:
+  path:
+    description: Path to checkout
+    required: false
+    default: .
+outputs:
+  status:
+    description: Status of checkout
+runs:
+  using: node20
+  main: dist/index.js
